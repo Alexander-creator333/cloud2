@@ -55,7 +55,7 @@ public class Controller implements Initializable {
                     }
                 }
                 os.writeUTF("OK");
-            } else { //if (command.equals("./upload")) {
+            } else { //if (command.equals("./upload")) { //запасик на будущее
                 System.out.println(command);
             }
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: 7/21/2020 init connect to server
         try{
-            socket = new Socket("localhost", 8189);
+            socket = new Socket("localhost", 8189);//порт
             is = new DataInputStream(socket.getInputStream());
             os = new DataOutputStream(socket.getOutputStream());
             Thread.sleep(1000);
