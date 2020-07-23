@@ -12,7 +12,7 @@ public class ConnectionHandler implements Runnable {
     private DataInputStream is;
     private DataOutputStream os;
     private List<File> clientFileList;
-    private String serverPath;
+    private String serverPath = "./server/src/main/resources/";
 
 
     public ConnectionHandler(Socket socket) throws IOException, InterruptedException {
@@ -88,7 +88,7 @@ public class ConnectionHandler implements Runnable {
 
 
                 } else {
-                    os.writeUTF("ERROR command");
+                    os.writeUTF("ERROR command");//ошибка
                 }
             } catch (Exception e) {
                 e.printStackTrace();
