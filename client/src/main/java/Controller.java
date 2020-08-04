@@ -31,12 +31,11 @@ public class Controller implements Initializable {
             byte [] buffer = new byte[1024];
             String[] subStr;
             subStr = text.getText().split(" ");
-            os.writeUTF(subStr[0]);
+            os.write((subStr[0]+"\0\2").getBytes());
             if (subStr.length >1 ){
-                os.writeUTF(subStr[1]);
+                os.write((subStr[1]+"\0\2").getBytes());
             } else {
-                os.writeUTF(subStr[0]); //времянка, чтобы комманды из одного слова отправлялись без ероров.
-            }
+                os.write((subStr[0]+"\0\2").getBytes()); //времянка, чтобы комманды из одного слова отправлялись без ероров.
             }
             String command = is.readUTF();
             if (command.equals("./upload")) {
@@ -54,7 +53,7 @@ public class Controller implements Initializable {
                         fos.write(buffer, 0, bytesRead);
                     }
                 }
-                os.writeUTF("OK");
+                os.write("OK\0\2".getBytes());
             } else { //if (command.equals("./upload")) { //запасик на будущее
                 System.out.println(command);
             }
@@ -93,8 +92,8 @@ public class Controller implements Initializable {
                     File currentFile = findFileByName(fileName);
                     if (currentFile != null) {
                         try {
-                            os.writeUTF("./upload");
-                            os.writeUTF(fileName);
+                            os.write("./upload\0\2".getBytes() );
+                            os.write((fileName+"\0\2").getBytes());
                             os.writeLong(currentFile.length());
                             FileInputStream fis = new FileInputStream(currentFile);
                             byte [] buffer = new byte[1024];
